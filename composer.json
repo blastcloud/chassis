@@ -1,0 +1,22 @@
+{
+    "name": "blastcloud/chassis",
+    "description": "The frame for your next HTTP client library tests.",
+    "type": "library",
+    "require": {
+        "phpunit/phpunit": "^8.2",
+        "ext-json": "*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Kelso",
+            "email": "kelso.adam@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "BlastCloud\\Chassis\\": "src",
+            "tests\\": "tests"
+        }
+    }
+}
