@@ -2,43 +2,37 @@
 
 namespace tests\Filters;
 
-use BlastCloud\Guzzler\Expectation;
-use BlastCloud\Guzzler\Filters\WithCallback;
-use BlastCloud\Guzzler\UsesGuzzler;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
+use BlastCloud\Chassis\Expectation;
+use BlastCloud\Chassis\Filters\WithCallback;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
+use tests\testFiles\ChassisChild;
 
 class WithCallbackTest extends TestCase
 {
-    use UsesGuzzler;
-
-    /** @var Client */
-    public $client;
+    /** @var ChassisChild */
+    public $chassis;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->client = $this->guzzler->getClient();
+        $this->chassis = new ChassisChild($this);
     }
 
     public function testWithCallback()
     {
-        $this->guzzler->queueResponse(new Response());
+        $this->chassis->setHistory([
+           ['first'], ['second']
+        ]);
 
-        $this->client->get('/woeiue');
-
-        $this->guzzler->assertFirst(function (Expectation $e) {
+        $this->chassis->assertFirst(function (Expectation $e) {
             return $e->withCallback(function ($history) {
-                return isset($history['request'])
-                    && $history['request'] instanceof Request;
+                return true;
             });
         });
 
-        $this->guzzler->assertNone(function (Expectation $e) {
+        $this->chassis->assertNone(function (Expectation $e) {
             return $e->withCallback(function ($history) {
                 return false;
             });
@@ -47,14 +41,14 @@ class WithCallbackTest extends TestCase
 
     public function testFailureString()
     {
-        $this->guzzler->queueResponse(new Response());
-
-        $this->client->get('/aoweiu');
+        $this->chassis->setHistory([
+            ['first']
+        ]);
 
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage((new WithCallback())->__toString());
 
-        $this->guzzler->assertAll(function (Expectation $e) {
+        $this->chassis->assertAll(function (Expectation $e) {
             return $e->withCallback(function ($history) {
                 return false;
             });
@@ -63,16 +57,16 @@ class WithCallbackTest extends TestCase
 
     public function testFailureUserString()
     {
-        $this->guzzler->queueResponse(new Response());
-
-        $this->client->get('/aowiuew');
+        $this->chassis->setHistory([
+            ['first']
+        ]);
 
         $message = 'My custom callback message.';
 
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage($message);
 
-        $this->guzzler->assertAll(function (Expectation $e) use ($message) {
+        $this->chassis->assertAll(function (Expectation $e) use ($message) {
             return $e->withCallback(function ($history) {
                 return false;
             }, $message);

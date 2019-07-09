@@ -2,34 +2,40 @@
 
 namespace tests\Filters;
 
-use BlastCloud\Guzzler\Expectation;
-use BlastCloud\Guzzler\UsesGuzzler;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
+use BlastCloud\Chassis\Expectation;
+use BlastCloud\Chassis\Interfaces\MockHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use tests\testFiles\{WithBody, WithTest};
+use tests\testFiles\{ChassisChild, WithCallback, WithTest};
 
 class FiltersTest extends TestCase
 {
-    use UsesGuzzler;
+    /** @var ChassisChild */
+    public $chassis;
 
-    /** @var Client */
-    public $client;
+    /** @var MockHandler|MockObject */
+    public $mockHandler;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->client = $this->guzzler->getClient();
+        $this->mockHandler = $this->getMockBuilder(MockHandler::class)
+            ->setMethods(['append', 'count'])
+            ->getMock();
+
+        $this->chassis = (new ChassisChild($this))->setHandler($this->mockHandler);
     }
 
     public function testAddNamespace()
     {
-        $this->guzzler->expects($this->once())
+        $this->chassis->expects($this->once())
             ->withTest('something', 'another')
-            ->will(new Response());
+            ->will(['something']);
 
-        $this->client->get('/anything');
+        $this->chassis->setHistory([
+            ['first']
+        ]);
 
         $this->assertEquals('something', WithTest::$first);
         $this->assertEquals('another', WithTest::$second);
@@ -37,15 +43,15 @@ class FiltersTest extends TestCase
 
     public function testCustomOverrides()
     {
-        $body = 'my special body';
+        Expectation::addNamespace('tests\\testFiles');
 
-        $this->guzzler->expects($this->once())
-            ->withBody($body)
-            ->will(new Response());
+        $message = 'my special body';
 
-        $this->client->post('/aow', ['body' => $body]);
+        $this->chassis->expects($this->once())
+            ->withCallback(function () {}, $message)
+            ->will(['something']);
 
-        $this->assertEquals($body, WithBody::$bodyString);
+        $this->assertEquals($message, WithCallback::$mess);
     }
 
     public function testAddNamespaceAndNamespaces()

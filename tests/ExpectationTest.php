@@ -2,54 +2,58 @@
 
 namespace tests;
 
-use GuzzleHttp\Psr7\Response;
-use BlastCloud\Guzzler\{Expectation, UsesGuzzler};
+use BlastCloud\Chassis\Expectation;
+use BlastCloud\Chassis\Interfaces\MockHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use tests\testFiles\ChassisChild;
 
 class ExpectationTest extends TestCase
 {
-    use UsesGuzzler;
+    /** @var ChassisChild */
+    public $chassis;
 
-    /** @var \GuzzleHttp\Client */
-    public $client;
+    /** @var MockHandler|MockObject */
+    public $mockHandler;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->client = $this->guzzler->getClient(['base_uri' => 'http://myspecialdomain.com']);
+        $this->mockHandler = $this->getMockBuilder(MockHandler::class)
+            ->setMethods(['append', 'count'])
+            ->getMock();
+
+        $this->chassis = (new ChassisChild($this))->setHandler($this->mockHandler);
+
+        Expectation::addNamespace('tests\\testFiles');
     }
 
     public function testExpectsReturnsExpectationInstanceAndIsChainable()
     {
-        $result = $this->guzzler->expects($this->never())
-            ->endpoint('/somewhere', 'GET');
+        $result = $this->chassis->expects($this->never())
+            ->withIndexes([]);
 
-        $this->assertInstanceOf(\BlastCloud\Guzzler\Expectation::class, $result);
-        $this->guzzler->queueResponse(new Response(200));
-
-        $this->client->get('/somewhere-else');
+        $this->assertInstanceOf(Expectation::class, $result);
     }
 
     public function testInvocationPassing()
     {
-        $this->guzzler->expects($this->once())
-            ->endpoint('/once', 'GET');
+        $expectation = $this->chassis->expects($this->once())
+            ->withIndexes([0])
+            ->willRespond(['first']);
 
-        $this->guzzler->expects($this->atLeastOnce())
-            ->endpoint('/at-least', 'POST');
+        $this->chassis->setHistory([
+            ['request' => (object)['key' => 'value']]
+        ]);
 
-        $this->guzzler->queueMany(new Response(), 3);
-
-        $this->client->get('/once');
-        $this->client->post('/at-least');
-        $this->client->post('/at-least');
+        $expectation($this, $this->chassis->getHistory());
     }
 
     public function testInvocationsFails()
     {
         $expectation = (new Expectation($this->once()))
-            ->get('/anything');
+            ->withIndexes([]);
 
         try {
             $expectation($this, []);
@@ -61,17 +65,22 @@ class ExpectationTest extends TestCase
 
     public function testWillAndWillRespond()
     {
-        $this->guzzler->expects($this->once())
-            ->willRespond(new Response());
+        $this->mockHandler->expects($this->once())
+            ->method('append');
+        $this->mockHandler->method('count')
+            ->willReturn(1);
 
-        $this->client->get('woiej');
+        $this->chassis->expects($this->once())
+            ->willRespond(['oiuoi']);
+
+        $this->assertEquals(1, $this->chassis->queueCount());
     }
 
-    public function testUnknownConvenienceVerb()
+    public function testUnknownMacro()
     {
         $this->expectException(\Error::class);
 
-        $this->guzzler->expects($this->never())
+        $this->chassis->expects($this->never())
             ->something('/a-url');
     }
 
@@ -81,7 +90,7 @@ class ExpectationTest extends TestCase
         $class = Expectation::class;
         $this->expectExceptionMessage("Call to undefined method {$class}::withDoesNotExist");
 
-        $this->guzzler->expects($this->never())
+        $this->chassis->expects($this->never())
             ->withDoesNotExist('something');
     }
 }

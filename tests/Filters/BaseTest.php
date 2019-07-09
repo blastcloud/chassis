@@ -3,20 +3,19 @@
 namespace tests\Filters;
 
 use BlastCloud\Chassis\Expectation;
-use BlastCloud\Chassis\UsesGuzzler;
 use PHPUnit\Framework\TestCase;
+use tests\testFiles\ChassisChild;
 
 class BaseTest extends TestCase
 {
-    use UsesGuzzler;
-
-    public $client;
+    /** @var ChassisChild */
+    public $chassis;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->client = $this->guzzler->getClient();
+        $this->chassis = new ChassisChild($this);
     }
 
     public function testAddThrowsErrorWhenMethodNotFound()
@@ -25,7 +24,7 @@ class BaseTest extends TestCase
         $class = Expectation::class;
         $this->expectExceptionMessage("Call to undefined method {$class}::withBodyDouble()");
 
-        $this->guzzler->expects($this->never())
+        $this->chassis->expects($this->never())
             ->withBodyDouble('anything');
     }
 }

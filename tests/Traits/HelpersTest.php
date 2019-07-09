@@ -2,7 +2,7 @@
 
 namespace tests\Traits;
 
-use BlastCloud\Guzzler\Traits\Helpers;
+use BlastCloud\Chassis\Traits\Helpers;
 use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
