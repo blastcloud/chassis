@@ -7,6 +7,7 @@ use BlastCloud\Chassis\Interfaces\MockHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use BlastCloud\Chassis\Chassis;
+use tests\testFiles\ChassisChild;
 
 class ChassisTest extends TestCase
 {
@@ -24,20 +25,7 @@ class ChassisTest extends TestCase
             ->setMethods(['append', 'count'])
             ->getMock();
 
-        $this->chassis = (new class($this) extends Chassis
-        {
-            public function getClient(array $options = []) {}
-            public function setHandler($handler) {
-                $this->mockHandler = $handler;
-                return $this;
-            }
-            public function setHistory($history) {
-                $this->history = $history;
-            }
-            public function getExpectations() {
-                return $this->expectations;
-            }
-        })->setHandler($this->mockHandler);
+        $this->chassis = (new ChassisChild($this))->setHandler($this->mockHandler);
     }
 
     public function testQueueResponseWithResponse()
