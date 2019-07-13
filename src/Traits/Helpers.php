@@ -16,7 +16,7 @@ trait Helpers
      * @param bool $exclusive
      * @return bool
      */
-    public function testFields(array $fields, array $parsed, $exclusive = false)
+    public function verifyFields(array $fields, array $parsed, $exclusive = false)
     {
         foreach ($fields as $key => $value) {
             if ($this->arrayMissing($key, $value, $parsed)) {
@@ -43,9 +43,13 @@ trait Helpers
      */
     public function arrayMissing(string $key, $value, array $haystack)
     {
-        return !isset($haystack[$key])
-            || (is_array($haystack[$key]) && !in_array($value, $haystack[$key]))
-            || $haystack[$key] != $value;
+        if (!$vals = $haystack[$key] ?? false) {
+            return false;
+        }
+
+        return (is_array($vals) && !is_array($value) && !in_array($value, $vals))
+            || (is_array($vals) && !empty(array_diff($value, $vals)))
+            || (!is_array($vals) && $vals != $value);
     }
 
     /**

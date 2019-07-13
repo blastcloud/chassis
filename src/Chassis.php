@@ -43,16 +43,6 @@ abstract class Chassis
     abstract public function getClient(array $options = []);
 
     /**
-     * Get the handler stack to pass to a new Client instance.
-     *
-     * @return mixed
-     */
-    public function getHandlerStack()
-    {
-        return $this->handlerStack;
-    }
-
-    /**
      * Add a response to the mock queue. All responses
      * will return in the order they are given.
      *

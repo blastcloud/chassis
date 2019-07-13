@@ -6,12 +6,11 @@ use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use BlastCloud\Chassis\Chassis;
 use tests\testFiles\ChassisChild;
 
 class ChassisTest extends TestCase
 {
-    /** @var Chassis */
+    /** @var ChassisChild */
     public $chassis;
 
     /** @var MockHandler|MockObject */
@@ -107,5 +106,23 @@ class ChassisTest extends TestCase
         $this->assertEquals(1, $this->getNumAssertions());
         $this->assertInstanceOf(Expectation::class, $expectation);
         $this->assertCount(1, $this->chassis->getExpectations());
+    }
+
+    public function testRunExpectations()
+    {
+        $this->chassis->expects($this->once())
+            ->withCallback(function () {
+                return true;
+            });
+
+        $this->chassis->setHistory([
+            [
+                'request' => (object) [
+                    'something' => 'value'
+                ]
+            ]
+        ]);
+
+        $this->chassis->runParentExpectations();
     }
 }

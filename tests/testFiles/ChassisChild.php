@@ -28,4 +28,9 @@ class ChassisChild extends Chassis
     public function getExpectations() {
         return $this->expectations;
     }
+
+    public function runParentExpectations()
+    {
+        $this->runExpectations();
+    }
 }
