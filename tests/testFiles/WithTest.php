@@ -9,6 +9,13 @@ class WithTest extends Base implements With
 {
     public static $first;
     public static $second;
+    public $endpoint = '/some-endpoint/here';
+    public static $toString = 'something';
+
+    public static function getEndpointString()
+    {
+        return (new self)->endpoint;
+    }
 
     public function withTest($first, $second)
     {
@@ -23,7 +30,7 @@ class WithTest extends Base implements With
 
     public function __toString(): string
     {
-        // TODO: Implement __toString() method.
+        return self::$toString;
     }
 
 }

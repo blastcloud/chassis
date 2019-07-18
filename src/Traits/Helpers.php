@@ -43,9 +43,11 @@ trait Helpers
      */
     public function arrayMissing(string $key, $value, array $haystack)
     {
-        if (!$vals = $haystack[$key] ?? false) {
-            return false;
+        if (!isset($haystack[$key])) {
+            return true;
         }
+
+        $vals = $haystack[$key];
 
         return (is_array($vals) && !is_array($value) && !in_array($value, $vals))
             || (is_array($vals) && !empty(array_diff($value, $vals)))

@@ -18,13 +18,18 @@ class BaseTest extends TestCase
         $this->chassis = new ChassisChild($this);
     }
 
-    public function testAddThrowsErrorWhenMethodNotFound()
+    public function testFindsClassButNotMethod()
     {
         $this->expectException(\Error::class);
-        $class = Expectation::class;
-        $this->expectExceptionMessage("Call to undefined method {$class}::withBodyDouble()");
+        $this->expectExceptionMessage("Call to undefined method ".Expectation::class."::withCallbackExtended()");
 
-        $this->chassis->expects($this->never())
-            ->withBodyDouble('anything');
+        // First with real
+        $this->chassis->expects($this->once())
+            ->withCallback(function() { return false; })
+            ->withCallback(function () { return true; });
+
+        // Second with non-real
+        $this->chassis->expects($this->once())
+            ->withCallbackExtended('something');
     }
 }

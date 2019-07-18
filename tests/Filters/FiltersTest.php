@@ -4,6 +4,7 @@ namespace tests\Filters;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use tests\testFiles\{ChassisChild, WithCallback, WithTest};
@@ -61,5 +62,24 @@ class FiltersTest extends TestCase
         Expectation::addNamespace('GuzzleHttp');
 
         $this->assertContains('GuzzleHttp', Expectation::namespaces());
+    }
+
+    public function testErrorStrings()
+    {
+        $this->chassis->setHistory([
+            ['something']
+        ]);
+
+        try {
+            $this->chassis->assertAll(function (Expectation $e) {
+                return $e->withTest('something', 'other')
+                    ->withCallback(function ($e) {
+                        return false;
+                    });
+            });
+        } catch (\Throwable $exception) {
+            $this->assertStringContainsString(WithTest::getEndpointString(), $exception->getMessage());
+            $this->assertStringContainsString(WithTest::$toString, $exception->getMessage());
+        }
     }
 }
