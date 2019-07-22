@@ -103,10 +103,12 @@ trait Assertions
      */
     public function assertFirst(\Closure $closure, $message = null)
     {
+        $class = $this->expectationClass;
+
         $h = $this->runClosure(
             $this->findOrFailIndexes([0]),
             $closure,
-            $e = new Expectation()
+            $e = new $class()
         );
 
         $this->assert(
