@@ -122,7 +122,7 @@ class Expectation
             : self::PHPUNIT_81;
 
         foreach ($this->runFilters($history) as $i) {
-            $this->times->invoked(new $class('', '', [], '', $i['request']));
+            $this->times->invoked(new $class('', '', [], '', (object)$i['request']));
         }
 
         try {
