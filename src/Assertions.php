@@ -169,10 +169,12 @@ trait Assertions
      */
     public function assertNotLast(\Closure $closure, $message = null)
     {
+        $class = $this->expectationClass;
+
         $h = $this->runClosure(
             [$this->getLast()],
             $closure,
-            $e = new Expectation()
+            $e = new $class()
         );
 
         $this->assert(

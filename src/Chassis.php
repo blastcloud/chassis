@@ -17,6 +17,8 @@ abstract class Chassis
     /** @var array [Expectation] */
     protected $expectations = [];
 
+    protected $expectationClass = Expectation::class;
+
     public function __construct(TestCase $testInstance)
     {
         $this->testInstance = $testInstance;
@@ -115,7 +117,8 @@ abstract class Chassis
      */
     public function expects(InvokedRecorder $argument)
     {
-        $this->expectations[] = $expectation = new Expectation($argument, $this);
+        $class = $this->expectationClass;
+        $this->expectations[] = $expectation = new $class($argument, $this);
 
         // Each expectation is an assertion, but because the assertion
         // won't be tested until the @after method, we should add a
