@@ -66,10 +66,10 @@ trait Assertions
      *
      * @param array $history
      * @param \Closure $closure
-     * @param Expectation $e
+     * @param mixed $e
      * @return mixed
      */
-    protected function runClosure(array $history, \Closure $closure, Expectation $e)
+    protected function runClosure(array $history, \Closure $closure, $e)
     {
         $closure($e);
 
@@ -103,12 +103,10 @@ trait Assertions
      */
     public function assertFirst(\Closure $closure, $message = null)
     {
-        $class = $this->expectationClass;
-
         $h = $this->runClosure(
             $this->findOrFailIndexes([0]),
             $closure,
-            $e = new $class()
+            $e = $this->newExpect()
         );
 
         $this->assert(
@@ -129,7 +127,7 @@ trait Assertions
         $h = $this->runClosure(
             $this->findOrFailIndexes([0]),
             $closure,
-            $e = new Expectation()
+            $e = $this->newExpect()
         );
 
         $this->assert(
@@ -154,7 +152,7 @@ trait Assertions
         $h = $this->runClosure(
             [$this->getLast()],
             $closure,
-            $e = new Expectation()
+            $e = $this->newExpect()
         );
 
         $this->assert(
@@ -171,12 +169,10 @@ trait Assertions
      */
     public function assertNotLast(\Closure $closure, $message = null)
     {
-        $class = $this->expectationClass;
-
         $h = $this->runClosure(
             [$this->getLast()],
             $closure,
-            $e = new $class()
+            $e = $this->newExpect()
         );
 
         $this->assert(
@@ -214,7 +210,7 @@ trait Assertions
         $h = $this->runClosure(
             $this->findOrFailIndexes($indexes),
             $closure,
-            $e = new Expectation()
+            $e = $this->newExpect()
         );
 
         $diff = array_diff($indexes, array_keys($h));
@@ -238,7 +234,7 @@ trait Assertions
         $h = $this->runClosure(
             $this->findOrFailIndexes($indexes),
             $closure,
-            $e = new Expectation()
+            $e = $this->newExpect()
         );
 
         $intersect = array_intersect_key(array_keys($h), $indexes);

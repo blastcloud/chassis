@@ -113,12 +113,11 @@ abstract class Chassis
      * request can be asserted against.
      *
      * @param InvokedRecorder $argument
-     * @return Expectation
      */
     public function expects(InvokedRecorder $argument)
     {
         $class = $this->expectationClass;
-        $this->expectations[] = $expectation = new $class($argument, $this);
+        $this->expectations[] = $expectation = $this->newExpect($argument);
 
         // Each expectation is an assertion, but because the assertion
         // won't be tested until the @after method, we should add a
@@ -126,5 +125,11 @@ abstract class Chassis
         $this->increment();
 
         return $expectation;
+    }
+
+    protected function newExpect(?InvokedRecorder $argument = null)
+    {
+        $class = $this->expectationClass;
+        return new $class($argument, $this);
     }
 }
