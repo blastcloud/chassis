@@ -42,10 +42,10 @@ class Expectation
      * @param null|InvokedRecorder $times
      * @param null|Chassis $guzzler
      */
-    public function __construct($times = null, $guzzler = null)
+    public function __construct($times = null, $chassis = null)
     {
         $this->times = $times;
-        $this->chassis = $guzzler;
+        $this->chassis = $chassis;
     }
 
     /**

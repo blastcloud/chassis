@@ -106,7 +106,7 @@ trait Assertions
         $h = $this->runClosure(
             $this->findOrFailIndexes([0]),
             $closure,
-            $e = $this->newExpect()
+            $e = $this->createExpectation()
         );
 
         $this->assert(
@@ -127,7 +127,7 @@ trait Assertions
         $h = $this->runClosure(
             $this->findOrFailIndexes([0]),
             $closure,
-            $e = $this->newExpect()
+            $e = $this->createExpectation()
         );
 
         $this->assert(
@@ -152,7 +152,7 @@ trait Assertions
         $h = $this->runClosure(
             [$this->getLast()],
             $closure,
-            $e = $this->newExpect()
+            $e = $this->createExpectation()
         );
 
         $this->assert(
@@ -172,7 +172,7 @@ trait Assertions
         $h = $this->runClosure(
             [$this->getLast()],
             $closure,
-            $e = $this->newExpect()
+            $e = $this->createExpectation()
         );
 
         $this->assert(
@@ -210,7 +210,7 @@ trait Assertions
         $h = $this->runClosure(
             $this->findOrFailIndexes($indexes),
             $closure,
-            $e = $this->newExpect()
+            $e = $this->createExpectation()
         );
 
         $diff = array_diff($indexes, array_keys($h));
@@ -234,7 +234,7 @@ trait Assertions
         $h = $this->runClosure(
             $this->findOrFailIndexes($indexes),
             $closure,
-            $e = $this->newExpect()
+            $e = $this->createExpectation()
         );
 
         $intersect = array_intersect_key(array_keys($h), $indexes);
