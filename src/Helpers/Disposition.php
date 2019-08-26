@@ -23,7 +23,9 @@ class Disposition
 
     public function __construct(string $body)
     {
-        foreach (preg_split("/((\r?\n)|(\r\n?))/", $body) as $line) {
+        $lines = preg_split("/((\r?\n)|(\r\n?))/", $body);
+
+        foreach ($lines as $line) {
             // There is a blank line between fields and the value of the disposition.
             if(empty($line)) {
                 break;
@@ -41,6 +43,10 @@ class Disposition
 
             // Otherwise, it's a header.
             $this->headers[$start] = $end;
+        }
+
+        if (empty($this->contentLength)) {
+            $this->content_length(strlen(end($lines)));
         }
 
         $this->contents = substr($body, strlen($body) - $this->contentLength);
@@ -74,6 +80,6 @@ class Disposition
 
     protected function content_type($line)
     {
-        $this->contentType = $line;
+        $this->contentType = strtok($line, ';');
     }
 }

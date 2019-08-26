@@ -3,6 +3,8 @@
 namespace tests\testFiles;
 
 use BlastCloud\Chassis\Chassis;
+use BlastCloud\Chassis\Expectation;
+use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
 
 /**
  * This class only exists to be a concrete class for the Chassis class.
@@ -32,5 +34,10 @@ class ChassisChild extends Chassis
     public function runParentExpectations()
     {
         $this->runExpectations();
+    }
+
+    protected function createExpectation(?InvokedRecorder $argument = null)
+    {
+        return new Expectation($argument, $this);
     }
 }

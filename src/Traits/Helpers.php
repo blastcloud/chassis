@@ -2,6 +2,9 @@
 
 namespace BlastCloud\Chassis\Traits;
 
+use BlastCloud\Chassis\Helpers\Disposition;
+use Psr\Http\Message\StreamInterface;
+
 trait Helpers
 {
     /**
@@ -69,5 +72,41 @@ trait Helpers
                 return ((array)$item)[$property] ?? null;
             }, $collection)
         );
+    }
+
+    /**
+     * Using the MultipartStream, split all fields and values into an array
+     *
+     * @param string $body
+     * @param string $boundary
+     * @return Disposition[]
+     */
+    protected function parseMultipartBody(string $body, string $boundary): array
+    {
+        // Remove any dashes at the beginning and end so that the following regex will work.
+        $boundary = trim($boundary, '-');
+
+        // Split based on the boundary and any dashes the client adds
+        $split = preg_split("/-*\b{$boundary}\b-*/", $body, 0, PREG_SPLIT_NO_EMPTY);
+
+        // Trim line breaks and delete empty values
+        $dispositions = array_filter(array_map(function ($dis) { return trim($dis);}, $split));
+
+        // Parse out the parts into keys and values
+        return array_map(function ($item) {
+            return new Disposition($item);
+        }, array_values($dispositions));
+    }
+
+    protected function parseHeaderVariables(string $needle, string $headerLine)
+    {
+        foreach (explode(';', $headerLine) as $item) {
+            if (strpos($item, $needle) !== false) {
+                $parts = explode($needle.'=', $item);
+                return trim(end($parts), '" ');
+            }
+        }
+
+        return false;
     }
 }
