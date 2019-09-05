@@ -10,7 +10,7 @@ env:
     - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS=""
   global:
-    - CC_TEST_REPORTER_ID=5c94d8e0c60b910f6aae41f3b835f5e9798fc14b8a5624354623a894ec7164cf
+    - CC_TEST_REPORTER_ID=55ecb27e19a12d1f68eb90c478491c99483ddc0e0073e5a987007a94b36f8dfc
     - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 
 before_script:
