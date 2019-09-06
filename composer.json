@@ -1,9 +1,9 @@
 {
     "name": "blastcloud/chassis",
-    "description": "The frame for your next HTTP client library tests.",
+    "description": "A framework for building declarative HTTP client test libraries",
     "type": "library",
     "require": {
-        "phpunit/phpunit": ">=7.2",
+        "phpunit/phpunit": ">=7.0",
         "ext-json": "*"
     },
     "license": "MIT",

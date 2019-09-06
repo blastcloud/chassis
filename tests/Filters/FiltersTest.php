@@ -78,8 +78,10 @@ class FiltersTest extends TestCase
                     });
             });
         } catch (\Throwable $exception) {
-            $this->assertStringContainsString(WithTest::getEndpointString(), $exception->getMessage());
-            $this->assertStringContainsString(WithTest::$toString, $exception->getMessage());
+            // TODO: Once support for PHPUnit 7 is dropped, change these to
+            // assertStringContainsString()
+            $this->assertNotFalse(strpos($exception->getMessage(), WithTest::getEndpointString()));
+            $this->assertNotFalse(strpos($exception->getMessage(), WithTest::$toString));
         }
     }
 }

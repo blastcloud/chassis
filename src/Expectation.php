@@ -118,7 +118,7 @@ class Expectation
     public function __invoke(TestCase $instance, array $history): void
     {
         $class = class_exists(self::PHPUNIT_82)
-            ? self::PHPUNIT_82
+            ? self::PHPUNIT_82 // @codeCoverageIgnore
             : self::PHPUNIT_81;
 
         foreach ($this->runFilters($history) as $i) {

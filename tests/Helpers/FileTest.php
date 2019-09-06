@@ -54,7 +54,7 @@ class FileTest extends TestCase
         $file->filename = 'something off';
         $file->contents = 'some contents, yeah!!!';
 
-        $this->assertIsNotBool($file->compare($d));
+        $this->assertFalse(is_bool($file->compare($d)));
     }
 
     /**

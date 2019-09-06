@@ -1,8 +1,21 @@
 # Chassis
 
+<p align="center">
+    <a href="https://travis-ci.org/blastcloud/chassis">
+        <img src="https://travis-ci.org/blastcloud/chassis.svg?branch=master">
+    </a>
+    <img src="https://poser.pugx.org/blastcloud/chassis/v/stable" />
+    <a href="https://codeclimate.com/github/blastcloud/chassis/maintainability">
+        <img src="https://api.codeclimate.com/v1/badges/3f5e4fa71bd03ce8424f/maintainability" />
+    </a>
+    <a href="https://github.com/blastcloud/chassis/blob/master/LICENSE.md">
+        <img src="https://poser.pugx.org/blastcloud/chassis/license" />
+    </a>
+</p>
+
 A framework for building declarative testing libraries for PHP / HTTP request packages.
 
-Chassis provides a foundation upon which a shared testing syntax can be used across different HTTP client projects in the PHP community (thus far [Guzzle](https://Guzzle PHP.org) and [HttpClient]( https://symfony.com/components/HttpClient)).
+Chassis provides a foundation upon which a shared testing syntax can be used across different HTTP client projects in the PHP community (thus far [Guzzle](http://docs.guzzlephp.org/en/stable/) and [HttpClient](https://symfony.com/components/HttpClient)).
 
 ## Requirements
 
