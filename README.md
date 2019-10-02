@@ -15,7 +15,7 @@
 
 A framework for building declarative testing libraries for PHP / HTTP request packages.
 
-Chassis provides a foundation upon which a shared testing syntax can be used across different HTTP client projects in the PHP community (thus far [Guzzle](http://docs.guzzlephp.org/en/stable/) and [HttpClient](https://symfony.com/components/HttpClient)).
+Chassis provides a foundation upon which a shared testing syntax can be used across different HTTP client projects in the PHP community (thus far [Guzzle](http://docs.guzzlephp.org/en/stable/) with [Guzzler](https://guzzler.dev) and [HttpClient](https://symfony.com/components/HttpClient) with [Hybrid](https://hybrid.guzzler.dev)).
 
 ## Requirements
 
