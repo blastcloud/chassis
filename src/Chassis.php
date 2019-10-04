@@ -3,7 +3,7 @@
 namespace BlastCloud\Chassis;
 
 use BlastCloud\Chassis\Interfaces\MockHandler;
-use PHPUnit\Framework\{TestCase, MockObject\Matcher\InvokedRecorder};
+use PHPUnit\Framework\{MockObject\Matcher\Invocation, TestCase, MockObject\Matcher\InvokedRecorder};
 
 abstract class Chassis
 {
@@ -110,9 +110,9 @@ abstract class Chassis
      * Create a new Expectation instance on which various pieces of the
      * request can be asserted against.
      *
-     * @param InvokedRecorder $argument
+     * @param  $argument
      */
-    public function expects(InvokedRecorder $argument)
+    public function expects($argument)
     {
         $this->expectations[] = $expectation = $this->createExpectation($argument);
 
@@ -124,5 +124,5 @@ abstract class Chassis
         return $expectation;
     }
 
-    abstract protected function createExpectation(?InvokedRecorder $argument = null);
+    abstract protected function createExpectation($argument = null);
 }

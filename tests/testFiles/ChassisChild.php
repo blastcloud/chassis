@@ -36,7 +36,7 @@ class ChassisChild extends Chassis
         $this->runExpectations();
     }
 
-    protected function createExpectation(?InvokedRecorder $argument = null)
+    protected function createExpectation($argument = null)
     {
         return new Expectation($argument, $this);
     }

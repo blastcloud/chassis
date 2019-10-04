@@ -40,7 +40,7 @@ class Expectation
     /**
      * Expectation constructor.
      * @param null|InvokedRecorder $times
-     * @param null|Chassis $guzzler
+     * @param null|Chassis $chassis
      */
     public function __construct($times = null, $chassis = null)
     {
