@@ -3,7 +3,7 @@
     "description": "A framework for building declarative HTTP client test libraries",
     "type": "library",
     "require": {
-        "phpunit/phpunit": ">=7.0",
+        "phpunit/phpunit": ">=8.2",
         "ext-json": "*"
     },
     "license": "MIT",

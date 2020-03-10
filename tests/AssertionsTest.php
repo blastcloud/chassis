@@ -20,6 +20,16 @@ class AssertionsTest extends TestCase
     /** @var \Closure */
     public $dumbClosure;
 
+    /** @var string */
+    public static $regexMethodName = 'expectExceptionMessageMatches';
+
+    public static function setUpBeforeClass(): void
+    {
+        if (!method_exists(self::class, self::$regexMethodName)) {
+            self::$regexMethodName = 'expectExceptionMessageRegExp';
+        }
+    }
+
     public function setUp(): void
     {
         parent::setUp();
@@ -40,7 +50,7 @@ class AssertionsTest extends TestCase
         ]);
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\bno history\b/");
+        $this->{self::$regexMethodName}("/\bno history\b/");
 
         $this->chassis->assertNoHistory();
     }
@@ -71,7 +81,7 @@ class AssertionsTest extends TestCase
     public function testAssertHistoryCountFailsDefaultMessageOneRequest()
     {
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\b1 request\b/");
+        $this->{self::$regexMethodName}("/\b1 request\b/");
 
         $this->chassis->assertHistoryCount(1);
     }
@@ -79,7 +89,7 @@ class AssertionsTest extends TestCase
     public function testAssertHistoryCountFailsDefaultMessageMultipleRequests()
     {
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\b0 requests\b/");
+        $this->{self::$regexMethodName}("/\b0 requests\b/");
 
         $this->chassis->setHistory([
             ['first'], ['second']
@@ -92,7 +102,7 @@ class AssertionsTest extends TestCase
         $message = 'my message';
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\b{$message}\b/");
+        $this->{self::$regexMethodName}("/\b{$message}\b/");
 
         $this->chassis->assertHistoryCount(3, $message);
     }
@@ -126,7 +136,7 @@ class AssertionsTest extends TestCase
         ]);
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\bfirst\b/");
+        $this->{self::$regexMethodName}("/\bfirst\b/");
 
         $this->chassis->assertFirst(function ($e) {
             return $e->withIndexes([]);
@@ -140,8 +150,8 @@ class AssertionsTest extends TestCase
         ]);
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\bfirst\b/");
-        $this->expectExceptionMessageRegExp("/\bnot meet\b/");
+        $this->{self::$regexMethodName}("/\bfirst\b/");
+        $this->{self::$regexMethodName}("/\bnot meet\b/");
 
         $this->chassis->assertNotFirst(function ($e) {
             return $e->withIndexes([0]);
@@ -192,7 +202,7 @@ class AssertionsTest extends TestCase
     public function testAssertAllEmpty()
     {
         $this->expectException(UndefinedIndexException::class);
-        $this->expectExceptionMessageRegExp("/\bempty\b/");
+        $this->{self::$regexMethodName}("/\bempty\b/");
         $this->chassis->assertAll(function ($e) {
             return $e->withIndexes([]);
         });
@@ -206,7 +216,7 @@ class AssertionsTest extends TestCase
 
         $this->expectException(AssertionFailedError::class);
         // Should include indexes of failed history items
-        $this->expectExceptionMessageRegExp("/\b[1,2]\b/");
+        $this->{self::$regexMethodName}("/\b[1,2]\b/");
         $this->chassis->assertAll(function ($e) {
             return $e->withIndexes([]);
         });
@@ -231,7 +241,7 @@ class AssertionsTest extends TestCase
     {
         $this->expectException(UndefinedIndexException::class);
         // Should include the index number of failure
-        $this->expectExceptionMessageRegExp("/\b[7]\b/");
+        $this->{self::$regexMethodName}("/\b[7]\b/");
         $this->chassis->assertIndexes([7], function ($e) {});
     }
 
@@ -264,7 +274,7 @@ class AssertionsTest extends TestCase
         ]);
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\blast request\b/");
+        $this->{self::$regexMethodName}("/\blast request\b/");
 
         $this->chassis->assertLast(function ($e) {
             return $e->withIndexes([]);
@@ -278,7 +288,7 @@ class AssertionsTest extends TestCase
         ]);
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\bdid not\b/");
+        $this->{self::$regexMethodName}("/\bdid not\b/");
 
         $this->chassis->assertNotLast(function ($e) {
             return $e->withIndexes([0]);
@@ -333,7 +343,7 @@ class AssertionsTest extends TestCase
         ]);
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessageRegExp("/\b[1]\b/");
+        $this->{self::$regexMethodName}("/\b[1]\b/");
 
         $this->chassis->assertNone(function ($e) {
             return $e->withIndexes([0]);

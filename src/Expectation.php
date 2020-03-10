@@ -6,6 +6,7 @@ use BlastCloud\Chassis\Filters\Filters;
 use BlastCloud\Chassis\Traits\Macros;
 use PHPUnit\Framework\{Assert, ExpectationFailedException, TestCase};
 use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
+use \PHPUnit\Framework\MockObject\Invocation;
 
 /**
  * Class Expectation
@@ -21,9 +22,6 @@ class Expectation
 
     /** @var InvokedRecorder */
     protected $times;
-
-    protected const PHPUNIT_82 = 'PHPUnit\Framework\MockObject\Invocation';
-    protected const PHPUNIT_81 = 'PHPUnit\Framework\MockObject\Invocation\ObjectInvocation';
 
     /**
      * Each value in this array becomes a convenience method over endpoint().
@@ -117,12 +115,8 @@ class Expectation
      */
     public function __invoke(TestCase $instance, array $history): void
     {
-        $class = class_exists(self::PHPUNIT_82)
-            ? self::PHPUNIT_82 // @codeCoverageIgnore
-            : self::PHPUNIT_81;
-
         foreach ($this->runFilters($history) as $i) {
-            $this->times->invoked(new $class('', '', [], '', (object)$i['request']));
+            $this->times->invoked(new Invocation('', '', [], '', $i['request']));
         }
 
         try {
