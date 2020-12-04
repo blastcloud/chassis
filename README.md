@@ -2,7 +2,7 @@
 
 <p align="center">
     <a href="https://travis-ci.org/blastcloud/chassis">
-        <img src="https://travis-ci.org/blastcloud/chassis.svg?branch=master">
+        <img src="https://img.shields.io/github/workflow/status/blastcloud/chassis/run-tests?label=tests">
     </a>
     <img src="https://poser.pugx.org/blastcloud/chassis/v/stable" />
     <a href="https://codeclimate.com/github/blastcloud/chassis/maintainability">
