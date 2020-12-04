@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.4] - 2020-12-04
+- Support for PHP 8.0
+- Moves CI to Github actions
+
 ## [1.0.3] - 2020-03-09
 - This release is purely to support PHPUnit 9. As a by-product of that, chassis will no longer support versions below 8.2
 - Drops support for PHP 7.1
