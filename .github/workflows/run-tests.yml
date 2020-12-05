@@ -31,7 +31,7 @@ jobs:
                     coverage: xdebug
 
             -   name: Install dependencies
-                run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggestion
+                run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
             -   name: Execute tests
                 run: vendor/bin/phpunit
