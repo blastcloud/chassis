@@ -63,7 +63,7 @@ class File implements \JsonSerializable
         $this->$name = $value;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'filename' => $this->filename,

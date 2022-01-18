@@ -1,6 +1,6 @@
 # Chassis
 
-<p align="center">
+<p style="text-align:center;">
     <a href="https://travis-ci.org/blastcloud/chassis">
         <img src="https://img.shields.io/github/workflow/status/blastcloud/chassis/run-tests?label=tests">
     </a>
@@ -19,8 +19,8 @@ Chassis provides a foundation upon which a shared testing syntax can be used acr
 
 ## Requirements
 
-- PHP 7.1+
-- PHPUnit 7+
+- PHP 7.4+
+- PHPUnit 8.2+
 
 The one firm requirement is PHPUnit, as the testing infrastructure of Chassis is based on the PHPUnit assertion and test case classes. Chassis also only supports the versions of PHPUnit currently supported (7 and 8 at this time). As new versions of PHPUnit are delivered and support for the older versions are dropped, Chassis will drop support also.
 

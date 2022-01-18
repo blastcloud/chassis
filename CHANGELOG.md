@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - 2022-01-17
+- Support for PHP 8.1
+- Dropping support for versions of PHP below 7.4
+- Removing Travis CI yml, and updating PHPUnit schema
+
 ## [1.0.4] - 2020-12-04
 - Support for PHP 8.0
 - Moves CI to Github actions
