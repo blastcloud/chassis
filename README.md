@@ -1,8 +1,8 @@
 # Chassis
 
 <p style="text-align:center;">
-    <a href="https://travis-ci.org/blastcloud/chassis">
-        <img src="https://img.shields.io/github/workflow/status/blastcloud/chassis/run-tests?label=tests">
+    <a href="https://github.com/blastcloud/chassis/actions/workflows/run-tests.yml">
+        <img src="https://github.com/blastcloud/chassis/actions/workflows/run-tests.yml/badge.svg)">
     </a>
     <img src="https://poser.pugx.org/blastcloud/chassis/v/stable" />
     <a href="https://codeclimate.com/github/blastcloud/chassis/maintainability">
