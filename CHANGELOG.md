@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - 2022-12-27
+- Support for PHP 8.2, remove support for 7.4
+- Updating dependencies
+
 ## [1.0.5] - 2022-01-17
 - Support for PHP 8.1
 - Dropping support for versions of PHP below 7.4
