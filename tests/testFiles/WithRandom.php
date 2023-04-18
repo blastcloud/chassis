@@ -1,23 +1,23 @@
 <?php
 
-namespace tests\testFiles;
+namespace Tests\TestFiles;
 
 use BlastCloud\Chassis\Filters\Base;
 use BlastCloud\Chassis\Interfaces\With;
 
-class WithTest extends Base implements With
+class WithRandom extends Base implements With
 {
-    public static $first;
-    public static $second;
-    public $endpoint = '/some-endpoint/here';
-    public static $toString = 'something';
+    public static string $first;
+    public static string $second;
+    public string $endpoint = '/some-endpoint/here';
+    public static string $toString = 'something';
 
     public static function getEndpointString()
     {
         return (new self)->endpoint;
     }
 
-    public function withTest($first, $second)
+    public function withRandom($first, $second)
     {
         self::$first = $first;
         self::$second = $second;

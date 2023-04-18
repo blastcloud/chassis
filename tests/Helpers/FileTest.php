@@ -69,7 +69,7 @@ class FileTest extends TestCase
         $this->assertFalse($file->compare($d));
     }
 
-    public function getDisposition()
+    public static function getDisposition()
     {
         return [
             [

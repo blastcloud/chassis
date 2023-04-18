@@ -22,7 +22,7 @@ class MacrosTest extends TestCase
         parent::setUp();
 
         $this->mockHandler = $this->getMockBuilder(MockHandler::class)
-            ->setMethods(['append', 'count'])
+            ->onlyMethods(['append', 'count'])
             ->getMock();
 
         $this->chassis = (new ChassisChild($this))->setHandler($this->mockHandler);

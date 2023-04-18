@@ -1,10 +1,9 @@
 <?php
 
-namespace tests\testFiles;
+namespace Tests\TestFiles;
 
 use BlastCloud\Chassis\Chassis;
 use BlastCloud\Chassis\Expectation;
-use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
 
 /**
  * This class only exists to be a concrete class for the Chassis class.
@@ -12,7 +11,7 @@ use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
  * are helpers for making testing easier.
  *
  * Class ChassisChild
- * @package tests\testFiles
+ * @package Tests\TestFiles
  */
 class ChassisChild extends Chassis
 {

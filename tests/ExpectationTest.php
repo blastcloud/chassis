@@ -1,32 +1,30 @@
 <?php
 
-namespace tests;
+namespace Tests;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use tests\testFiles\ChassisChild;
+use Tests\TestFiles\ChassisChild;
 
 class ExpectationTest extends TestCase
 {
-    /** @var ChassisChild */
-    public $chassis;
+    public ChassisChild $chassis;
 
-    /** @var MockHandler|MockObject */
-    public $mockHandler;
+    public MockHandler|MockObject $mockHandler;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->mockHandler = $this->getMockBuilder(MockHandler::class)
-            ->setMethods(['append', 'count'])
+            ->onlyMethods(['append', 'count'])
             ->getMock();
 
         $this->chassis = (new ChassisChild($this))->setHandler($this->mockHandler);
 
-        Expectation::addNamespace('tests\\testFiles');
+        Expectation::addNamespace('Tests\\TestFiles');
     }
 
     public function testExpectsReturnsExpectationInstanceAndIsChainable()

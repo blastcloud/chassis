@@ -6,22 +6,19 @@ use PHPUnit\Framework\{ TestCase, Assert };
 
 trait Assertions
 {
-    protected $history = [];
+    protected array $history = [];
 
-    /** @var TestCase */
-    protected $testInstance;
+    protected TestCase $testInstance;
 
-    protected function increment()
+    protected function increment(): void
     {
         $this->testInstance->addToAssertionCount(1);
     }
 
     /**
      * Assert that no requests have been called on the client.
-     *
-     * @param null|string $message
      */
-    public function assertNoHistory($message = null)
+    public function assertNoHistory(?string $message = null): void
     {
         $this->assertHistoryCount(
             0,
@@ -31,11 +28,8 @@ trait Assertions
 
     /**
      * Assert that the specified number of requests have been made.
-     *
-     * @param int $count
-     * @param null|string $message
      */
-    public function assertHistoryCount(int $count, $message = null)
+    public function assertHistoryCount(int $count, ?string $message = null): void
     {
         $r = $count == 1 ? 'request' : 'requests';
 
@@ -46,11 +40,9 @@ trait Assertions
     }
 
     /**
-     * @param array $indexes
      * @throws UndefinedIndexException
-     * @return array
      */
-    protected function findOrFailIndexes(array $indexes)
+    protected function findOrFailIndexes(array $indexes): array
     {
         return array_map(function ($i) {
             if (!isset($this->history[$i])) {
@@ -63,13 +55,8 @@ trait Assertions
 
     /**
      * Run Filters from the closure Expectation with a specific subset of history.
-     *
-     * @param array $history
-     * @param \Closure $closure
-     * @param mixed $e
-     * @return mixed
      */
-    protected function runClosure(array $history, \Closure $closure, $e)
+    protected function runClosure(array $history, \Closure $closure, mixed $e): mixed
     {
         $closure($e);
 
@@ -81,11 +68,8 @@ trait Assertions
     /**
      * This is really just a convenience method to save a few repeated lines
      * for each assert method.
-     *
-     * @param bool $test
-     * @param $message
      */
-    protected function assert(bool $test, $message)
+    protected function assert(bool $test, string $message): void
     {
         if (!$test) {
             Assert::fail($message);
@@ -96,12 +80,9 @@ trait Assertions
 
     /**
      * Assert that the first request meets expectations.
-     *
-     * @param \Closure $closure
-     * @param null|string $message
      * @throws UndefinedIndexException
      */
-    public function assertFirst(\Closure $closure, $message = null)
+    public function assertFirst(\Closure $closure, ?string $message = null): void
     {
         $h = $this->runClosure(
             $this->findOrFailIndexes([0]),
@@ -118,11 +99,9 @@ trait Assertions
     /**
      * Assert that the first request does not met expectations.
      *
-     * @param \Closure $closure
-     * @param null $message
      * @throws UndefinedIndexException
      */
-    public function assertNotFirst(\Closure $closure, $message = null)
+    public function assertNotFirst(\Closure $closure, ?string $message = null): void
     {
         $h = $this->runClosure(
             $this->findOrFailIndexes([0]),
@@ -143,11 +122,8 @@ trait Assertions
 
     /**
      * Assert that the last request meets expectations.
-     *
-     * @param \Closure $closure
-     * @param null $message
      */
-    public function assertLast(\Closure $closure, $message = null)
+    public function assertLast(\Closure $closure, ?string $message = null): void
     {
         $h = $this->runClosure(
             [$this->getLast()],
@@ -163,11 +139,8 @@ trait Assertions
 
     /**
      * Assert that the last request does not meet expectations.
-     *
-     * @param \Closure $closure
-     * @param null $message
      */
-    public function assertNotLast(\Closure $closure, $message = null)
+    public function assertNotLast(\Closure $closure, ?string $message = null): void
     {
         $h = $this->runClosure(
             [$this->getLast()],
@@ -183,12 +156,9 @@ trait Assertions
 
     /**
      * Assert that every request, regardless of count, meet expectations.
-     *
-     * @param \Closure $closure
-     * @param null $message
      * @throws UndefinedIndexException
      */
-    public function assertAll(\Closure $closure, $message = null)
+    public function assertAll(\Closure $closure, $message = null): void
     {
         if (empty($this->history)) {
             throw new UndefinedIndexException("Client history is currently empty.");
@@ -200,12 +170,9 @@ trait Assertions
     /**
      * Assert that a subset of history meets expectations.
      *
-     * @param array $indexes
-     * @param \Closure $closure
-     * @param null $message
      * @throws UndefinedIndexException
      */
-    public function assertIndexes(array $indexes, \Closure $closure, $message = null)
+    public function assertIndexes(array $indexes, \Closure $closure, ?string $message = null): void
     {
         $h = $this->runClosure(
             $this->findOrFailIndexes($indexes),
@@ -224,12 +191,9 @@ trait Assertions
     /**
      * Assert that a subset of history does not meet expectations.
      *
-     * @param array $indexes
-     * @param \Closure $closure
-     * @param null $message
      * @throws UndefinedIndexException
      */
-    public function assertNotIndexes(array $indexes, \Closure $closure, $message = null)
+    public function assertNotIndexes(array $indexes, \Closure $closure, ?string $message = null): void
     {
         $h = $this->runClosure(
             $this->findOrFailIndexes($indexes),
@@ -249,11 +213,9 @@ trait Assertions
     /**
      * Assert that no requests match the expectation.
      *
-     * @param \Closure $closure
-     * @param null $message
      * @throws UndefinedIndexException
      */
-    public function assertNone(\Closure $closure, $message = null)
+    public function assertNone(\Closure $closure, $message = null): void
     {
         $this->assertNotIndexes(array_keys($this->history), $closure, $message);
     }

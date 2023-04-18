@@ -1,12 +1,12 @@
 <?php
 
-namespace tests;
+namespace Tests;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\UndefinedIndexException;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
-use tests\testFiles\ChassisChild;
+use Tests\TestFiles\ChassisChild;
 
 class AssertionsTest extends TestCase
 {
@@ -35,7 +35,7 @@ class AssertionsTest extends TestCase
         parent::setUp();
 
         $this->chassis = new ChassisChild($this);
-        Expectation::addNamespace('tests\\testFiles');
+        Expectation::addNamespace('Tests\\TestFiles');
     }
 
     public function testAssertNoHistoryPasses()

@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\testFiles;
+namespace Tests\TestFiles;
 
 use BlastCloud\Chassis\Filters\WithCallback as Base;
 use BlastCloud\Chassis\Interfaces\With;
 
 class WithCallback extends Base implements With
 {
-    public static $mess;
+    public static ?string $mess;
 
     public function withCallback(\Closure $closure, $message = null)
     {

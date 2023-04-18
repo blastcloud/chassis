@@ -1,12 +1,12 @@
 <?php
 
-namespace tests;
+namespace Tests;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use tests\testFiles\ChassisChild;
+use Tests\TestFiles\ChassisChild;
 
 class ChassisTest extends TestCase
 {
@@ -21,7 +21,7 @@ class ChassisTest extends TestCase
         parent::setUp();
 
         $this->mockHandler = $this->getMockBuilder(MockHandler::class)
-            ->setMethods(['append', 'count'])
+            ->onlyMethods(['append', 'count'])
             ->getMock();
 
         $this->chassis = (new ChassisChild($this))->setHandler($this->mockHandler);
@@ -103,7 +103,7 @@ class ChassisTest extends TestCase
 
         $expectation = $this->chassis->expects($this->once());
 
-        $this->assertEquals(1, $this->getNumAssertions());
+        $this->assertEquals(1, $this->getCount());
         $this->assertInstanceOf(Expectation::class, $expectation);
         $this->assertCount(1, $this->chassis->getExpectations());
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\testFiles;
+namespace Tests\TestFiles;
 
 use BlastCloud\Chassis\Filters\Base;
 use BlastCloud\Chassis\Interfaces\With;
@@ -11,13 +11,13 @@ use BlastCloud\Chassis\Interfaces\With;
  * that is needed.
  *
  * Class WithIndexes
- * @package tests\testFiles
+ * @package Tests\TestFiles
  */
 class WithIndexes extends Base implements With
 {
-    public $indexes = [];
+    public array $indexes = [];
 
-    public function withIndexes(array $indexes)
+    public function withIndexes(array $indexes): void
     {
         $this->indexes = $indexes;
     }

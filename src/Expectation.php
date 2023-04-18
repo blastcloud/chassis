@@ -5,8 +5,8 @@ namespace BlastCloud\Chassis;
 use BlastCloud\Chassis\Filters\Filters;
 use BlastCloud\Chassis\Traits\Macros;
 use PHPUnit\Framework\{Assert, ExpectationFailedException, TestCase};
-use PHPUnit\Framework\MockObject\Matcher\InvokedRecorder;
-use \PHPUnit\Framework\MockObject\Invocation;
+use PHPUnit\Framework\MockObject\Invocation;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 
 /**
  * Class Expectation
@@ -17,11 +17,9 @@ class Expectation
 {
     use Filters, Macros;
 
-    /** @var Chassis */
-    protected $chassis;
+    protected ?Chassis $chassis;
 
-    /** @var InvokedRecorder */
-    protected $times;
+    protected ?InvokedCount $times;
 
     /**
      * Each value in this array becomes a convenience method over endpoint().
@@ -37,7 +35,7 @@ class Expectation
 
     /**
      * Expectation constructor.
-     * @param null|InvokedRecorder $times
+     * @param null|InvokedCount $times
      * @param null|Chassis $chassis
      */
     public function __construct($times = null, $chassis = null)

@@ -1,28 +1,25 @@
 <?php
 
-namespace tests\Filters;
+namespace Tests\Filters;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
-use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use tests\testFiles\{ChassisChild, WithCallback, WithTest};
+use Tests\TestFiles\{ChassisChild, WithCallback, WithRandom};
 
 class FiltersTest extends TestCase
 {
-    /** @var ChassisChild */
-    public $chassis;
+    public ChassisChild $chassis;
 
-    /** @var MockHandler|MockObject */
-    public $mockHandler;
+    public MockHandler|MockObject $mockHandler;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->mockHandler = $this->getMockBuilder(MockHandler::class)
-            ->setMethods(['append', 'count'])
+            ->onlyMethods(['append', 'count'])
             ->getMock();
 
         $this->chassis = (new ChassisChild($this))->setHandler($this->mockHandler);
@@ -31,20 +28,20 @@ class FiltersTest extends TestCase
     public function testAddNamespace()
     {
         $this->chassis->expects($this->once())
-            ->withTest('something', 'another')
+            ->withRandom('something', 'another')
             ->will(['something']);
 
         $this->chassis->setHistory([
             ['first']
         ]);
 
-        $this->assertEquals('something', WithTest::$first);
-        $this->assertEquals('another', WithTest::$second);
+        $this->assertEquals('something', WithRandom::$first);
+        $this->assertEquals('another', WithRandom::$second);
     }
 
     public function testCustomOverrides()
     {
-        Expectation::addNamespace('tests\\testFiles');
+        Expectation::addNamespace('Tests\\TestFiles');
 
         $message = 'my special body';
 
@@ -72,7 +69,7 @@ class FiltersTest extends TestCase
 
         try {
             $this->chassis->assertAll(function (Expectation $e) {
-                return $e->withTest('something', 'other')
+                return $e->withRandom('something', 'other')
                     ->withCallback(function ($e) {
                         return false;
                     });
@@ -80,8 +77,8 @@ class FiltersTest extends TestCase
         } catch (\Throwable $exception) {
             // TODO: Once support for PHPUnit 7 is dropped, change these to
             // assertStringContainsString()
-            $this->assertNotFalse(strpos($exception->getMessage(), WithTest::getEndpointString()));
-            $this->assertNotFalse(strpos($exception->getMessage(), WithTest::$toString));
+            $this->assertNotFalse(strpos($exception->getMessage(), WithRandom::getEndpointString()));
+            $this->assertNotFalse(strpos($exception->getMessage(), WithRandom::$toString));
         }
     }
 }
