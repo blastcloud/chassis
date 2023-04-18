@@ -1,17 +1,16 @@
 <?php
 
-namespace tests\Filters;
+namespace Tests\Filters;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Filters\WithCallback;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
-use tests\testFiles\ChassisChild;
+use Tests\TestFiles\ChassisChild;
 
 class WithCallbackTest extends TestCase
 {
-    /** @var ChassisChild */
-    public $chassis;
+    public ChassisChild $chassis;
 
     public function setUp(): void
     {

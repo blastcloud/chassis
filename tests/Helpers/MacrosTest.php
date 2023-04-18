@@ -1,18 +1,16 @@
 <?php
 
-namespace tests\Helpers;
+namespace Tests\Helpers;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
-use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use tests\testFiles\ChassisChild;
+use Tests\TestFiles\ChassisChild;
 
 class MacrosTest extends TestCase
 {
-    /** @var ChassisChild */
-    public $chassis;
+    public ChassisChild $chassis;
 
     /** @var MockHandler|MockObject */
     public $mockHandler;
