@@ -16,22 +16,14 @@ jobs:
 
         steps:
             -   name: Checkout code
-                uses: actions/checkout@v1
+                uses: actions/checkout@v3
 
-            -   name: Cache dependencies
-                uses: actions/cache@v1
-                with:
-                    path: ~/.composer/cache/files
-                    key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php }}
-                    coverage: xdebug
-
-            -   name: Install dependencies
-                run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+            -   name: Dependencies
+                uses: php-actions/composer@v6
 
             -   name: Execute tests
-                run: vendor/bin/phpunit
+                uses: php-actions/phpunit@master
+                with:
+                    bootstrap: vendor/autoload.php
+                    configuration: phpunit.xml
+                    args: --coverage-text
