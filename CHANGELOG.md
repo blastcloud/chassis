@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.8] - 2023-08-07
+- Correct type-hinting error.
+
 ## [1.0.7] - 2023-08-07
 - Correct changes in Invocation class in PHPUnit 10.3
 - Update supported PHP and PHPUnit versions
