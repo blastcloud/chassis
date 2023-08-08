@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.7] - 2023-08-07
+- Correct changes in Invocation class in PHPUnit 10.3
+- Update supported PHP and PHPUnit versions
+
 ## [1.0.6] - 2022-12-27
 - Support for PHP 8.2, remove support for 7.4
 - Updating dependencies
