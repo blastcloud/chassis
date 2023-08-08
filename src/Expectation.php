@@ -4,7 +4,7 @@ namespace BlastCloud\Chassis;
 
 use BlastCloud\Chassis\Filters\Filters;
 use BlastCloud\Chassis\Traits\Macros;
-use PHPUnit\Framework\{Assert, ExpectationFailedException, TestCase};
+use PHPUnit\Framework\{Assert, ExpectationFailedException, MockObject\MockBuilder, TestCase};
 use PHPUnit\Framework\MockObject\Invocation;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 
@@ -113,8 +113,10 @@ class Expectation
      */
     public function __invoke(TestCase $instance, array $history): void
     {
+        $mock = $instance->getMockBuilder(\stdClass::class)->getMock();
+
         foreach ($this->runFilters($history) as $i) {
-            $this->times->invoked(new Invocation('', '', [], '', $i['request']));
+            $this->times->invoked(new Invocation('', '', [], '', $mock));
         }
 
         try {
