@@ -4,7 +4,7 @@ namespace BlastCloud\Chassis;
 
 use BlastCloud\Chassis\Filters\Filters;
 use BlastCloud\Chassis\Traits\Macros;
-use PHPUnit\Framework\{Assert, ExpectationFailedException, MockObject\MockBuilder, TestCase};
+use PHPUnit\Framework\{Assert, ExpectationFailedException, SelfDescribing, TestCase};
 use PHPUnit\Framework\MockObject\Invocation;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 
@@ -19,7 +19,7 @@ class Expectation
 
     protected ?Chassis $chassis;
 
-    protected ?InvokedCount $times;
+    protected ?SelfDescribing $times;
 
     /**
      * Each value in this array becomes a convenience method over endpoint().
