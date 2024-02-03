@@ -14,12 +14,12 @@ namespace BlastCloud\Chassis\Helpers;
  */
 class Disposition
 {
-    protected $contents;
-    protected $contentType;
-    protected $contentLength;
-    protected $filename;
-    protected $headers = [];
-    protected $name;
+    protected ?string $contents;
+    protected ?string $contentType;
+    protected int $contentLength = 0;
+    protected ?string $filename;
+    protected array $headers = [];
+    protected string $name;
 
     public function __construct(string $body)
     {
@@ -52,7 +52,7 @@ class Disposition
         $this->contents = substr($body, strlen($body) - $this->contentLength);
     }
 
-    public function __get($name)
+    public function __get(string $name): mixed
     {
         return $this->$name ?? null;
     }
@@ -62,7 +62,7 @@ class Disposition
         return !empty($this->filename);
     }
 
-    protected function content_disposition($line)
+    protected function content_disposition($line): void
     {
         foreach (explode(';', $line) as $datum) {
             $parts = explode('=', trim($datum));
@@ -73,12 +73,12 @@ class Disposition
         }
     }
 
-    protected function content_length($line)
+    protected function content_length($line): void
     {
         $this->contentLength = (int)$line;
     }
 
-    protected function content_type($line)
+    protected function content_type($line): void
     {
         $this->contentType = strtok($line, ';');
     }

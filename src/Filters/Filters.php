@@ -6,38 +6,28 @@ use BlastCloud\Chassis\Interfaces\With;
 
 trait Filters
 {
-    protected $filters = [];
-    protected static $namespaces = [__NAMESPACE__];
+    protected array $filters = [];
+    protected static array $namespaces = [__NAMESPACE__];
 
     /**
      * Add a namespace to look through when dynamically looking for filters.
-     *
-     * @param string $namespace
      */
-    public static function addNamespace(string $namespace)
+    public static function addNamespace(string $namespace): void
     {
-        if (!in_array($namespace, self::$namespaces)) {
-            array_unshift(self::$namespaces, $namespace);
+        if (!in_array($namespace, static::$namespaces)) {
+            static::$namespaces = [$namespace, ...static::$namespaces];
         }
     }
 
-    /**
-     * Return the array of namespaces to search through for With* filters.
-     *
-     * @return array
-     */
-    public static function namespaces()
+    public static function namespaces(): array
     {
-        return self::$namespaces;
+        return static::$namespaces;
     }
 
     /**
      * Determine if the method called is a filter, a.k.a. starts with "with".
-     *
-     * @param $name
-     * @return bool|With
      */
-    protected function isFilter($name)
+    protected function isFilter(string $name): With|false
     {
         $parts = preg_split('/(?=[A-Z])/',$name);
         if ($parts[0] == 'with') {
@@ -49,11 +39,9 @@ trait Filters
 
     /**
      * Iterate through all namespaces to find a matching class.
-     *
-     * @param array $names
-     * @return bool
      */
-    protected function findFilter(array $names) {
+    protected function findFilter(array $names): With|false
+    {
         foreach ($names as $name) {
             if (isset($this->filters[$name])) {
                 return $this->filters[$name];

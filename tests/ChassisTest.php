@@ -10,11 +10,9 @@ use Tests\TestFiles\ChassisChild;
 
 class ChassisTest extends TestCase
 {
-    /** @var ChassisChild */
-    public $chassis;
+    public ChassisChild $chassis;
 
-    /** @var MockHandler|MockObject */
-    public $mockHandler;
+    public MockHandler|MockObject $mockHandler;
 
     public function setUp(): void
     {

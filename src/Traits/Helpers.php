@@ -13,13 +13,8 @@ trait Helpers
      * the provided values. By default, it does not care if there are extra
      * fields, but passing true as $exclusive will cause extra fields to
      * force a false to return.
-     *
-     * @param array $fields
-     * @param array $parsed
-     * @param bool $exclusive
-     * @return bool
      */
-    public function verifyFields(array $fields, array $parsed, $exclusive = false)
+    public function verifyFields(array $fields, array $parsed, bool $exclusive = false): bool
     {
         foreach ($fields as $key => $value) {
             if ($this->arrayMissing($key, $value, $parsed)) {
@@ -38,13 +33,8 @@ trait Helpers
     /**
      * Returns true if the $haystack passed does not have the $key or it
      * does, and the value does not match $value.
-     *
-     * @param string $key
-     * @param mixed $value
-     * @param array $haystack
-     * @return bool
      */
-    public function arrayMissing(string $key, $value, array $haystack)
+    public function arrayMissing(string $key, mixed $value, array $haystack): bool
     {
         if (!isset($haystack[$key])) {
             return true;
@@ -60,12 +50,8 @@ trait Helpers
     /**
      * Given an array of objects or arrays, return every instance of a
      * specified field. Any empty values are eliminated.
-     *
-     * @param array $collection
-     * @param string $property
-     * @return array
      */
-    public function pluck(array $collection, string $property)
+    public function pluck(array $collection, string $property): array
     {
         return array_filter(
             array_map(function ($item) use ($property) {
@@ -98,7 +84,7 @@ trait Helpers
         }, array_values($dispositions));
     }
 
-    protected function parseHeaderVariables(string $needle, string $headerLine)
+    protected function parseHeaderVariables(string $needle, string $headerLine): string | false
     {
         foreach (explode(';', $headerLine) as $item) {
             if (strpos($item, $needle) !== false) {
