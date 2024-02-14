@@ -11,8 +11,7 @@ abstract class Chassis
 
     protected $handlerStack;
 
-    /** @var MockHandler  */
-    protected $mockHandler;
+    protected MockHandler $mockHandler;
 
     /** @var Expectation[] */
     protected array $expectations = [];
