@@ -46,8 +46,12 @@ class Expectation
 
     /**
      * This is used exclusively for the convenience verb methods.
+     *
+     * @param string $name
+     * @param $arguments
+     * @return $this
      */
-    public function __call(string $name, mixed $arguments): self
+    public function __call($name, $arguments)
     {
         if ($this->runMacro($name, $this, $arguments)) {
             return $this;
@@ -64,8 +68,12 @@ class Expectation
 
     /**
      * Set a follow through; either response, callable, or Exception.
+     *
+     * @param $response
+     * @param int $times
+     * @return $this
      */
-    public function will(mixed $response, int $times = 1): self
+    public function will($response, int $times = 1)
     {
         for ($i = 0; $i < $times; $i++) {
             $this->chassis->queueResponse($response);
@@ -76,15 +84,19 @@ class Expectation
 
     /**
      * An alias of 'will'.
+     *
+     * @param $response
+     * @param int $times
+     * @return $this
      */
-    public function willRespond(mixed $response, int $times = 1): self
+    public function willRespond($response, int $times = 1)
     {
         $this->will($response, $times);
 
         return $this;
     }
 
-    protected function runFilters(array $history): array
+    protected function runFilters(array $history)
     {
         foreach ($this->filters as $filter) {
             $history = $filter($history);
@@ -95,10 +107,13 @@ class Expectation
 
     /**
      * Iterate over the history and verify the invocations against it.
+     *
+     * @param TestCase $instance
+     * @param array $history
      */
     public function __invoke(TestCase $instance, array $history): void
     {
-        $mock = (fn() => $this->createMock(\stdClass::class))->call($instance);
+        $mock = $instance->getMockBuilder(\stdClass::class)->getMock();
 
         foreach ($this->runFilters($history) as $i) {
             $this->times->invoked(new Invocation('', '', [], '', $mock));
@@ -112,7 +127,7 @@ class Expectation
         }
     }
 
-    public function __toString(): string
+    public function __toString()
     {
         $endpoint = $messages = '';
 

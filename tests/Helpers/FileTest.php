@@ -3,7 +3,6 @@
 namespace tests\Helpers;
 
 use BlastCloud\Chassis\Helpers\Disposition;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use BlastCloud\Chassis\Helpers\File;
 
@@ -30,7 +29,10 @@ class FileTest extends TestCase
         ], $res);
     }
 
-    #[DataProvider('getDisposition')]
+    /**
+     * @dataProvider getDisposition
+     * @param Disposition $d
+     */
     public function testFactoryAndSetterAndCompare(Disposition $d)
     {
         $file = File::create([
@@ -42,7 +44,10 @@ class FileTest extends TestCase
         $this->assertTrue($file->compare($d));
     }
 
-    #[DataProvider('getDisposition')]
+    /**
+     * @dataProvider getDisposition
+     * @param Disposition $d
+     */
     public function testCompareFails(Disposition $d)
     {
         $file = new File();
@@ -52,7 +57,10 @@ class FileTest extends TestCase
         $this->assertFalse(is_bool($file->compare($d)));
     }
 
-    #[DataProvider('getDisposition')]
+    /**
+     * @dataProvider getDisposition
+     * @param Disposition $d
+     */
     public function testCompareHeadersFail(Disposition $d)
     {
         $file = new File();

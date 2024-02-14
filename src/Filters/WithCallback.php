@@ -6,11 +6,13 @@ use BlastCloud\Chassis\Interfaces\With;
 
 class WithCallback extends Base implements With
 {
-    protected \Closure $closure;
+    /** @var \Closure */
+    protected $closure;
 
-    protected ?string $message;
+    /** @var string */
+    protected $message;
 
-    public function withCallback(\Closure $closure, ?string $message = null): void
+    public function withCallback(\Closure $closure, $message = null)
     {
         $this->closure = $closure;
         $this->message = $message;

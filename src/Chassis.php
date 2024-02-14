@@ -11,10 +11,16 @@ abstract class Chassis
 
     protected $handlerStack;
 
-    protected MockHandler $mockHandler;
+    /** @var MockHandler */
+    protected $mockHandler;
 
-    /** @var Expectation[] */
-    protected array $expectations = [];
+    /** @var array [Expectation] */
+    protected $expectations = [];
+
+    public function __construct(TestCase $testInstance)
+    {
+        $this->testInstance = $testInstance;
+    }
 
     /**
      * Run the cascade of expectations made. This
@@ -30,14 +36,19 @@ abstract class Chassis
 
     /**
      * Create a client instance with the required handler stacks.
+     *
+     * @param array $options
+     * @return mixed Return the client.
      */
-    abstract public function getClient(array $options = []): mixed;
+    abstract public function getClient(array $options = []);
 
     /**
      * Add a response to the mock queue. All responses
      * will return in the order they are given.
+     *
+     * @param mixed ...$arguments
      */
-    public function queueResponse(mixed ...$arguments): void
+    public function queueResponse(...$arguments): void
     {
         foreach ($arguments as $response) {
             $this->mockHandler->append($response);
@@ -46,8 +57,11 @@ abstract class Chassis
 
     /**
      * Add a response to the mock queue multiple times.
+     *
+     * @param mixed $argument
+     * @param int $times
      */
-    public function queueMany(mixed $argument, int $times = 1): void
+    public function queueMany($argument, int $times = 1)
     {
         for ($i = 0; $i < $times; $i++) {
             $this->mockHandler->append($argument);
@@ -56,16 +70,22 @@ abstract class Chassis
 
     /**
      * Get the current count of responses in the mock queue.
+     *
+     * @return int
      */
-    public function queueCount(): int
+    public function queueCount()
     {
         return $this->mockHandler->count();
     }
 
     /**
      * Return the history stack Guzzle builds with each request/response.
+     *
+     * @param int|null $index
+     * @param string|null $subIndex
+     * @return mixed
      */
-    public function getHistory(?int $index = null, ?string $subIndex = null): mixed
+    public function getHistory(?int $index = null, $subIndex = null)
     {
         if ($index === null) {
             return $this->history;
@@ -78,8 +98,10 @@ abstract class Chassis
 
     /**
      * Return the count of history items.
+     *
+     * @return int
      */
-    public function historyCount(): int
+    public function historyCount()
     {
         return count($this->history);
     }
@@ -87,8 +109,10 @@ abstract class Chassis
     /**
      * Create a new Expectation instance on which various pieces of the
      * request can be asserted against.
+     *
+     * @param  $argument
      */
-    public function expects(mixed $argument): Expectation
+    public function expects($argument)
     {
         $this->expectations[] = $expectation = $this->createExpectation($argument);
 
@@ -100,5 +124,5 @@ abstract class Chassis
         return $expectation;
     }
 
-    abstract protected function createExpectation(mixed $argument = null): Expectation;
+    abstract protected function createExpectation($argument = null);
 }

@@ -16,12 +16,12 @@ class File implements \JsonSerializable
 {
     use Helpers;
 
-    protected mixed $contents;
-    protected ?string $contentType;
-    protected ?string $filename;
-    protected array $headers = [];
+    protected $contents;
+    protected $contentType;
+    protected $filename;
+    protected $headers = [];
 
-    public function __construct(mixed $contents = null, ?string $filename = null, ?string $contentType = null, array $headers = [])
+    public function __construct($contents = null, string $filename = null, string $contentType = null, array $headers = [])
     {
         $this->contents = $this->resolveContent($contents);
         $this->filename = $filename;
@@ -29,9 +29,9 @@ class File implements \JsonSerializable
         $this->headers = $headers;
     }
 
-    public static function create(array $fields): static
+    public static function create(array $fields)
     {
-        return new static(
+        return new self(
             $fields['contents'] ?? null,
             $fields['filename'] ?? null,
             $fields['contentType'] ?? null,
@@ -39,7 +39,7 @@ class File implements \JsonSerializable
         );
     }
 
-    protected function resolveContent(mixed $file): mixed
+    protected function resolveContent($file)
     {
         if (is_resource($file)) {
             $f = $file;
@@ -50,7 +50,7 @@ class File implements \JsonSerializable
         return $file;
     }
 
-    public function __set(string $name, mixed $value): void
+    public function __set($name, $value)
     {
         if (!property_exists($this, $name)) {
             throw new \InvalidArgumentException("The $name property does not exist on the File object.");
@@ -73,7 +73,7 @@ class File implements \JsonSerializable
         ];
     }
 
-    public function compare(Disposition $d): array|bool
+    public function compare(Disposition $d)
     {
         foreach (['contents', 'filename', 'contentType'] as $att) {
             if ($f = $this->get($att, $d) != $d->$att) {
@@ -95,7 +95,7 @@ class File implements \JsonSerializable
         return true;
     }
 
-    protected function get(string $name, Disposition $default): string
+    protected function get($name, Disposition $default)
     {
         return $this->$name ?? $default->$name;
     }

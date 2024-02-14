@@ -8,8 +8,7 @@ trait Assertions
 {
     protected array $history = [];
 
-    public function __construct(protected  TestCase $testInstance)
-    { }
+    protected TestCase $testInstance;
 
     protected function increment(): void
     {

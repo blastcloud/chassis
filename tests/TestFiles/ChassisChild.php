@@ -15,30 +15,27 @@ use BlastCloud\Chassis\Expectation;
  */
 class ChassisChild extends Chassis
 {
-    public function getClient(array $options = []): mixed {}
+    public function getClient(array $options = []) {}
 
-    public function setHandler($handler): static
-    {
+    public function setHandler($handler) {
         $this->mockHandler = $handler;
         return $this;
     }
 
-    public function setHistory($history): void
-    {
+    public function setHistory($history) {
         $this->history = $history;
     }
 
-    public function getExpectations(): array
-    {
+    public function getExpectations() {
         return $this->expectations;
     }
 
-    public function runParentExpectations(): void
+    public function runParentExpectations()
     {
         $this->runExpectations();
     }
 
-    protected function createExpectation($argument = null): Expectation
+    protected function createExpectation($argument = null)
     {
         return new Expectation($argument, $this);
     }

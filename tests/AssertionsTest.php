@@ -10,16 +10,18 @@ use Tests\TestFiles\ChassisChild;
 
 class AssertionsTest extends TestCase
 {
-    public ChassisChild $chassis;
+    /** @var ChassisChild */
+    public $chassis;
 
-    public array $options = [
+    public $options = [
         'headers' => ['Guzzler' => '**the-values**']
     ];
 
-    public \Closure $dumbClosure;
+    /** @var \Closure */
+    public $dumbClosure;
 
     /** @var string */
-    public static string $regexMethodName = 'expectExceptionMessageMatches';
+    public static $regexMethodName = 'expectExceptionMessageMatches';
 
     public static function setUpBeforeClass(): void
     {

@@ -12,7 +12,8 @@ class MacrosTest extends TestCase
 {
     public ChassisChild $chassis;
 
-    public MockHandler|MockObject $mockHandler;
+    /** @var MockHandler|MockObject */
+    public $mockHandler;
 
     public function setUp(): void
     {
