@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2024-02-17
+- Add support back for PHPUnit 11. Now supporting 9.6, 10, and 11.
+- Add support for PHP 8.3. Now supports 8.1+.
+
 ## [1.0.8] - 2023-08-07
 - Correct type-hinting error.
 

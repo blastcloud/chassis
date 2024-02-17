@@ -16,7 +16,7 @@ Chassis provides a foundation upon which a shared testing syntax can be used acr
 ## Requirements
 
 - PHP 8.1+
-- PHPUnit 10.0+
+- PHPUnit 9.6+
 
 The one firm requirement is PHPUnit, as the testing infrastructure of Chassis is based on the PHPUnit assertion and test case classes. Chassis also only supports the versions of PHPUnit currently supported. As new versions of PHPUnit are delivered and support for the older versions are dropped, Chassis will drop support also.
 
