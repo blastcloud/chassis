@@ -8,6 +8,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
 
+/**
+ * @covers \BlastCloud\Chassis\Expectation
+ */
 class ExpectationTest extends TestCase
 {
     public ChassisChild $chassis;

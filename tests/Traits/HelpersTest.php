@@ -1,11 +1,14 @@
 <?php
 
-namespace tests\Traits;
+namespace Tests\Traits;
 
 use BlastCloud\Chassis\Helpers\Disposition;
 use BlastCloud\Chassis\Traits\Helpers;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \BlastCloud\Chassis\Traits\Helpers
+ */
 class HelpersTest extends TestCase
 {
     use Helpers;

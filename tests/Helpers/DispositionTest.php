@@ -5,6 +5,9 @@ namespace tests\Helpers;
 use BlastCloud\Chassis\Helpers\Disposition;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \BlastCloud\Chassis\Helpers\Disposition
+ */
 class DispositionTest extends TestCase
 {
     public function testSimpleValue()

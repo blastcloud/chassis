@@ -1,11 +1,14 @@
 <?php
 
-namespace tests\Helpers;
+namespace Tests\Helpers;
 
 use BlastCloud\Chassis\Helpers\Disposition;
 use PHPUnit\Framework\TestCase;
 use BlastCloud\Chassis\Helpers\File;
 
+/**
+ * @covers \BlastCloud\Chassis\Helpers\File
+ */
 class FileTest extends TestCase
 {
     public function testConstructorAndJsonEncoding()

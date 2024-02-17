@@ -6,6 +6,9 @@ use BlastCloud\Chassis\Expectation;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
 
+/**
+ * @covers \BlastCloud\Chassis\Filters\Base
+ */
 class BaseTest extends TestCase
 {
     public ChassisChild $chassis;

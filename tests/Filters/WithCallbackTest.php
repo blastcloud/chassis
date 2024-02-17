@@ -8,6 +8,9 @@ use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
 
+/**
+ * @covers \BlastCloud\Chassis\Filters\WithCallback
+ */
 class WithCallbackTest extends TestCase
 {
     public ChassisChild $chassis;

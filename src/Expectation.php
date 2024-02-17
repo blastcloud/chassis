@@ -113,7 +113,9 @@ class Expectation
      */
     public function __invoke(TestCase $instance, array $history): void
     {
-        $mock = $instance->getMockBuilder(\stdClass::class)->getMock();
+        $mock = (function () {
+            return $this->getMockBuilder(\stdClass::class)->getMock();
+        })->call($instance);
 
         foreach ($this->runFilters($history) as $i) {
             $this->times->invoked(new Invocation('', '', [], '', $mock));

@@ -8,6 +8,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\{ChassisChild, WithCallback, WithRandom};
 
+/**
+ * @covers \BlastCloud\Chassis\Filters\Filters
+ */
 class FiltersTest extends TestCase
 {
     public ChassisChild $chassis;
