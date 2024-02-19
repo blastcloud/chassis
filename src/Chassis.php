@@ -15,7 +15,7 @@ abstract class Chassis
     protected $mockHandler;
 
     /** @var array [Expectation] */
-    protected $expectations = [];
+    protected array $expectations = [];
 
     public function __construct(TestCase $testInstance)
     {
