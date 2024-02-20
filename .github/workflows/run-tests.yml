@@ -24,6 +24,6 @@ jobs:
               with:
                   php_version: ${{ matrix.php }}
             - name: Install Current PHPUnit
-              run: composer install phpunit/phpunit:^${{ matrix.phpunit}} --update-with-dependencies
+              run: composer require phpunit/phpunit:^${{ matrix.phpunit}} --update-with-dependencies
             - name: Run Tests
               run: ./vendor/bin/phpunit
