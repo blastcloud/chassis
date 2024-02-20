@@ -41,6 +41,8 @@ class MacrosTest extends TestCase
 
         $this->chassis->expects($this->once())
             ->inlineTest('the message');
+
+        $this->assertTrue(in_array('inlineTest', Expectation::macros()));
     }
 
     public function testOverrideInline()

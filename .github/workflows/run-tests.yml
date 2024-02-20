@@ -16,15 +16,14 @@ jobs:
                     - php: 8.1
                       phpunit: 11.0
 
-        name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+        name: PHP${{ matrix.php }} - PHPUnit${{ matrix.phpunit }}
 
         steps:
             - uses: actions/checkout@v4
             - uses: php-actions/composer@v6
               with:
                   php_version: ${{ matrix.php }}
-            - name: PHPUnit Tests
-              uses: php-actions/phpunit@v3
-              with:
-                  version: ${{ matrix.phpunit }}
-                  php_version: ${{ matrix.php }}
+            - name: Install Current PHPUnit
+              run: composer install phpunit/phpunit:^${{ matrix.phpunit}} --update-with-dependencies
+            - name: Run Tests
+              run: ./vendor/bin/phpunit

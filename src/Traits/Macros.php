@@ -41,4 +41,14 @@ trait Macros
 
         return true;
     }
+
+    /**
+     * Return an array of the names of all macros loaded.
+     *
+     * @return string[]
+     */
+    public static function macros(): array
+    {
+        return array_keys(self::$macros);
+    }
 }
