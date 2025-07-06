@@ -1,13 +1,15 @@
 <?php
 
-namespace tests\Helpers;
+namespace Tests\Helpers;
 
 use BlastCloud\Chassis\Helpers\Disposition;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \BlastCloud\Chassis\Helpers\Disposition
  */
+#[CoversTrait(Disposition::class)]
 class DispositionTest extends TestCase
 {
     public function testSimpleValue()

@@ -2,8 +2,10 @@
 
 namespace Tests;
 
+use BlastCloud\Chassis\Chassis;
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
@@ -11,6 +13,7 @@ use Tests\TestFiles\ChassisChild;
 /**
  * @covers \BlastCloud\Chassis\Chassis
  */
+#[CoversClass(Chassis::class)]
 class ChassisTest extends TestCase
 {
     /** @var ChassisChild */

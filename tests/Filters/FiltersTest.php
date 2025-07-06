@@ -3,7 +3,9 @@
 namespace Tests\Filters;
 
 use BlastCloud\Chassis\Expectation;
+use BlastCloud\Chassis\Filters\Filters;
 use BlastCloud\Chassis\Interfaces\MockHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\{ChassisChild, WithCallback, WithRandom};
@@ -11,6 +13,7 @@ use Tests\TestFiles\{ChassisChild, WithCallback, WithRandom};
 /**
  * @covers \BlastCloud\Chassis\Filters\Filters
  */
+#[CoversClass(Filters::class)]
 class FiltersTest extends TestCase
 {
     public ChassisChild $chassis;

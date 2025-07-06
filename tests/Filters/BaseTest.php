@@ -3,12 +3,15 @@
 namespace Tests\Filters;
 
 use BlastCloud\Chassis\Expectation;
+use BlastCloud\Chassis\Filters\Base;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
 
 /**
  * @covers \BlastCloud\Chassis\Filters\Base
  */
+#[CoversClass(Base::class)]
 class BaseTest extends TestCase
 {
     public ChassisChild $chassis;

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2025-07-05
+- Add support for PHPUnit 12, and PHP 8.4
+
 ## [1.1.1] - 2024-02-19
 - `.gitignore` and test cache cleanup. Thanks @jdreesen.
 - Type error fix for compatibility with Guzzler. Thanks @berrugo.

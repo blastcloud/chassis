@@ -4,6 +4,8 @@ namespace Tests\Helpers;
 
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Interfaces\MockHandler;
+use BlastCloud\Chassis\Traits\Macros;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
@@ -11,6 +13,7 @@ use Tests\TestFiles\ChassisChild;
 /**
  * @covers \BlastCloud\Chassis\Traits\Macros
  */
+#[CoversTrait(Macros::class)]
 class MacrosTest extends TestCase
 {
     public ChassisChild $chassis;

@@ -2,15 +2,18 @@
 
 namespace Tests;
 
+use BlastCloud\Chassis\Assertions;
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\UndefinedIndexException;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
 
 /**
  * @covers \BlastCloud\Chassis\Assertions
  */
+#[CoversClass(Assertions::class)]
 class AssertionsTest extends TestCase
 {
     /** @var ChassisChild */

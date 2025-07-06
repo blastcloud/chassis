@@ -4,11 +4,13 @@ namespace Tests\Traits;
 
 use BlastCloud\Chassis\Helpers\Disposition;
 use BlastCloud\Chassis\Traits\Helpers;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \BlastCloud\Chassis\Traits\Helpers
  */
+#[CoversTrait(Helpers::class)]
 class HelpersTest extends TestCase
 {
     use Helpers;

@@ -5,12 +5,14 @@ namespace Tests\Filters;
 use BlastCloud\Chassis\Expectation;
 use BlastCloud\Chassis\Filters\WithCallback;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tests\TestFiles\ChassisChild;
 
 /**
  * @covers \BlastCloud\Chassis\Filters\WithCallback
  */
+#[CoversClass(WithCallback::class)]
 class WithCallbackTest extends TestCase
 {
     public ChassisChild $chassis;

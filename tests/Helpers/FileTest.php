@@ -3,12 +3,15 @@
 namespace Tests\Helpers;
 
 use BlastCloud\Chassis\Helpers\Disposition;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use BlastCloud\Chassis\Helpers\File;
 
 /**
  * @covers \BlastCloud\Chassis\Helpers\File
  */
+#[CoversClass(File::class)]
 class FileTest extends TestCase
 {
     public function testConstructorAndJsonEncoding()
@@ -36,6 +39,7 @@ class FileTest extends TestCase
      * @dataProvider getDisposition
      * @param Disposition $d
      */
+    #[DataProvider('getDisposition')]
     public function testFactoryAndSetterAndCompare(Disposition $d)
     {
         $file = File::create([
@@ -51,6 +55,7 @@ class FileTest extends TestCase
      * @dataProvider getDisposition
      * @param Disposition $d
      */
+    #[DataProvider('getDisposition')]
     public function testCompareFails(Disposition $d)
     {
         $file = new File();
@@ -64,6 +69,7 @@ class FileTest extends TestCase
      * @dataProvider getDisposition
      * @param Disposition $d
      */
+    #[DataProvider('getDisposition')]
     public function testCompareHeadersFail(Disposition $d)
     {
         $file = new File();
