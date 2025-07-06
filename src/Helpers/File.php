@@ -21,7 +21,7 @@ class File implements \JsonSerializable
     protected $filename;
     protected $headers = [];
 
-    public function __construct($contents = null, string $filename = null, string $contentType = null, array $headers = [])
+    public function __construct($contents = null, ?string $filename = null, ?string $contentType = null, array $headers = [])
     {
         $this->contents = $this->resolveContent($contents);
         $this->filename = $filename;
